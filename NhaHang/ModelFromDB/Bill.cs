@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace NhaHang.ModelFromDB;
 
 [Table("Bill")]
-[Index("TableId", Name = "UQ__Bill__5408ADBBDDACB799", IsUnique = true)]
+
 public partial class Bill
 {
     [Key]
@@ -21,7 +21,7 @@ public partial class Bill
     public decimal TotalPrice { get; set; }
 
     [Column("paymentMethodID")]
-    public int PaymentMethodId { get; set; }
+    public int? PaymentMethodId { get; set; }
 
     [Column("paidDate", TypeName = "datetime")]
     public DateTime? PaidDate { get; set; }
@@ -38,7 +38,7 @@ public partial class Bill
 
     [ForeignKey("PaymentMethodId")]
     [InverseProperty("Bills")]
-    public virtual PaymentMethod PaymentMethod { get; set; } = null!;
+    public virtual PaymentMethod? PaymentMethod { get; set; } = null;
 
     [ForeignKey("TableId")]
     [InverseProperty("Bill")]
