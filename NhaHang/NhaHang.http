@@ -1,0 +1,6 @@
+@NhaHang_HostAddress = http://localhost:5177
+
+GET {{NhaHang_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

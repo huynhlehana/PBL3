@@ -1,0 +1,186 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Na\\source\\repos\\NhaHang\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\controllers\\tablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\controllers\\tablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\modelfromdb\\branch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\modelfromdb\\branch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\modelfromdb\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\modelfromdb\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\controllers\\monancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\controllers\\monancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\modelfromdb\\quanlynhahang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\modelfromdb\\quanlynhahang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\controllers\\chinhanhcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\controllers\\chinhanhcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\controllers\\danhmuccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\controllers\\danhmuccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|c:\\users\\na\\source\\repos\\nhahang\\nhahang\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10684BFB-F41E-4800-84E7-576215A0919B}|NhaHang\\NhaHang.csproj|solutionrelative:nhahang\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TableController.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\TableController.cs",
+              "RelativeDocumentMoniker": "NhaHang\\Controllers\\TableController.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\TableController.cs*",
+              "RelativeToolTip": "NhaHang\\Controllers\\TableController.cs*",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAwBAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T12:52:07.826Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Food.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\ModelFromDB\\Food.cs",
+              "RelativeDocumentMoniker": "NhaHang\\ModelFromDB\\Food.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\ModelFromDB\\Food.cs",
+              "RelativeToolTip": "NhaHang\\ModelFromDB\\Food.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAUwCIAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T01:41:19.338Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MonAnController.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\MonAnController.cs",
+              "RelativeDocumentMoniker": "NhaHang\\Controllers\\MonAnController.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\MonAnController.cs",
+              "RelativeToolTip": "NhaHang\\Controllers\\MonAnController.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAgwA0AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T12:04:02.773Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Branch.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\ModelFromDB\\Branch.cs",
+              "RelativeDocumentMoniker": "NhaHang\\ModelFromDB\\Branch.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\ModelFromDB\\Branch.cs",
+              "RelativeToolTip": "NhaHang\\ModelFromDB\\Branch.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T13:28:37.721Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ChiNhanhController.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\ChiNhanhController.cs",
+              "RelativeDocumentMoniker": "NhaHang\\Controllers\\ChiNhanhController.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\ChiNhanhController.cs",
+              "RelativeToolTip": "NhaHang\\Controllers\\ChiNhanhController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T13:19:02.547Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DanhMucController.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\DanhMucController.cs",
+              "RelativeDocumentMoniker": "NhaHang\\Controllers\\DanhMucController.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\DanhMucController.cs",
+              "RelativeToolTip": "NhaHang\\Controllers\\DanhMucController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAwwD0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T11:58:04.274Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "NhaHang\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Controllers\\UserController.cs",
+              "RelativeToolTip": "NhaHang\\Controllers\\UserController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwAcAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T12:07:59.561Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Program.cs",
+              "RelativeDocumentMoniker": "NhaHang\\Program.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\Program.cs",
+              "RelativeToolTip": "NhaHang\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T11:56:05.918Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "quanlynhahang.cs",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\ModelFromDB\\quanlynhahang.cs",
+              "RelativeDocumentMoniker": "NhaHang\\ModelFromDB\\quanlynhahang.cs",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\ModelFromDB\\quanlynhahang.cs",
+              "RelativeToolTip": "NhaHang\\ModelFromDB\\quanlynhahang.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAiwC0AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T11:54:39.896Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\appsettings.json",
+              "RelativeDocumentMoniker": "NhaHang\\appsettings.json",
+              "ToolTip": "C:\\Users\\Na\\source\\repos\\NhaHang\\NhaHang\\appsettings.json",
+              "RelativeToolTip": "NhaHang\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-15T11:49:30.39Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
