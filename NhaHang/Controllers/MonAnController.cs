@@ -26,12 +26,13 @@ namespace NhaHang.Controllers
                 {
                     f.FoodId,
                     f.FoodName,
+                    f.CategoryId,
                     CategoryName = f.Category.CategoryName,
                     f.Price,
                     f.Picture,
                 })
                 .ToList();
-            return Ok(new { dataa = foods });
+            return Ok(new { data = foods });
         }
 
         [HttpGet]
@@ -45,6 +46,7 @@ namespace NhaHang.Controllers
                 {
                     f.FoodId,
                     f.FoodName,
+                    f.CategoryId,
                     CategoryName = f.Category.CategoryName,
                     f.Price,
                     f.Picture,
@@ -82,6 +84,7 @@ namespace NhaHang.Controllers
                 {
                     f.FoodId,
                     f.FoodName,
+                    f.CategoryId,
                     CategoryName = f.Category.CategoryName,
                     f.Price,
                     f.Picture,
@@ -113,6 +116,7 @@ namespace NhaHang.Controllers
                 {
                     f.FoodId,
                     f.FoodName,
+                    f.CategoryId,
                     CategoryName = f.Category.CategoryName,
                     f.Price,
                     f.Picture,

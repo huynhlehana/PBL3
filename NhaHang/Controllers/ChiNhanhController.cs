@@ -19,7 +19,7 @@ namespace NhaHang.Controllers
         [Route("/Branch/List")]
         public IActionResult GetList()
         {
-            return Ok(new { dataa = dbc.Branches.ToList() });
+            return Ok(new { data = dbc.Branches.ToList() });
         }
 
         [HttpPost]
