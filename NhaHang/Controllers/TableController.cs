@@ -34,11 +34,10 @@ namespace NhaHang.Controllers
                 }).ToList();
 
             if (dsBan == null || dsBan.Count == 0)
-                return NotFound(new { message = "Không tìm thấy bàn nào cho chi nhánh này!" });
+                return NotFound(new { message = "Không tìm thấy bàn nào thuộc chi nhánh này!" });
 
             return Ok(new { data = dsBan });
         }
-
 
         [HttpPost]
         [Route("/Table/Add")]
