@@ -30,7 +30,7 @@ namespace NhaHang.Controllers
                     t.TableNumber,
                     t.Capacity,
                     StatusName = t.Status.StatusName,
-                    BranchName = t.Branch.BranchName
+                    t.BranchId,
                 }).ToList();
 
             if (dsBan == null || dsBan.Count == 0)
@@ -62,7 +62,7 @@ namespace NhaHang.Controllers
                     t.TableNumber,
                     t.Capacity,
                     StatusName = t.Status.StatusName,
-                    BranchName = t.Branch.BranchName
+                    t.BranchId,
                 })
                 .FirstOrDefault();
             return Ok(new { message = "Thêm bàn thành công!", data = ban });
@@ -91,7 +91,7 @@ namespace NhaHang.Controllers
                     t.TableNumber,
                     t.Capacity,
                     StatusName = t.Status.StatusName,
-                    BranchName = t.Branch.BranchName
+                    t.BranchId,
                 })
                 .FirstOrDefault();
             return Ok(new { message = "Cập nhật thông tin bàn thành công!", data = ban });
