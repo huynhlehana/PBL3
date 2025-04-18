@@ -110,6 +110,27 @@ namespace NhaHang.Controllers
             return BadRequest(new { message = "Trạng thái bàn không hợp lệ!" });
         }
 
+        [HttpDelete]
+        [Route("/Bill/DeleteFood")]
+        public IActionResult XoaMonKhoiHoaDon(int billItemId)
+        {
+            var billItem = dbc.BillItems
+                .Include(i => i.Bill)
+                .FirstOrDefault(i => i.BillItemId == billItemId);
+
+            if (billItem == null)
+                return NotFound(new { message = "Không tìm thấy món trong hóa đơn!" });
+
+            // Kiểm tra hóa đơn đã thanh toán chưa
+            if (billItem.Bill.PaidDate != null)
+                return BadRequest(new { message = "Hóa đơn đã thanh toán. Không thể xoá món!" });
+
+            dbc.BillItems.Remove(billItem);
+            dbc.SaveChanges();
+
+            return Ok(new { message = "Xoá món khỏi hóa đơn thành công!", deletedItemId = billItemId });
+        }
+
         [HttpPut]
         [Route("/Table/CheckIn")]
         public IActionResult KhachDenNhanBan(int tableId)
