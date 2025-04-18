@@ -38,7 +38,7 @@ namespace NhaHang.Controllers
                     role = t.Role.RoleName,
                     t.Picture,
                     CreateAt = t.CreateAt.Value.ToString("yyyy-MM-dd hh:mm:ss tt"),
-                    branch = t.Branch.BranchName,
+                    t.BranchId,
                 }).ToList();
 
             if (dsUser == null || dsUser.Count == 0)
@@ -73,7 +73,7 @@ namespace NhaHang.Controllers
                     role = user.Role.RoleName,
                     user.Picture,
                     CreateAt = user.CreateAt.Value.ToString("yyyy-MM-dd hh:mm:ss tt"),
-                    branchName = user.Branch.BranchName,
+                    user.BranchId,
                 }
             });
         }
