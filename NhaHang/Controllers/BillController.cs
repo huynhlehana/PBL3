@@ -17,118 +17,38 @@ namespace NhaHang.Controllers
         }
 
         [HttpPost]
-        [Route("/Bill/GetOrCreateByTable")]
-        public IActionResult LayHoacTaoHoaDonTheoBan(int tableId, int branchId)
+        [Route("/Bill/GetByTable")]
+        public IActionResult LayHoaDonTheoBan(int tableId)
         {
             var table = dbc.Tables.Find(tableId);
-
             if (table == null)
                 return NotFound(new { message = "Không tìm thấy bàn!" });
 
-            // Nếu bàn đang được đặt trước
-            if (table.StatusId == 2)
+            if (table.StatusId != 3)
+                return Ok(new { message = "Bàn chưa được sử dụng, không có hóa đơn!" });
+
+            var existingBill = dbc.Bills
+                .Include(b => b.BillItems)
+                .ThenInclude(i => i.Food)
+                .FirstOrDefault(b => b.TableId == tableId && b.PaidDate == null);
+
+            if (existingBill == null)
+                return StatusCode(500, new { message = "Bàn đang sử dụng nhưng không có hóa đơn! Kiểm tra dữ liệu." });
+
+            return Ok(new
             {
-                return BadRequest(new { message = "Bàn đã được đặt trước. Chưa thể tạo hóa đơn khi khách chưa đến." });
-            }
-
-            // Nếu bàn đang sử dụng
-            if (table.StatusId == 3)
-            {
-                var existingBill = dbc.Bills
-                    .Include(b => b.BillItems)
-                    .ThenInclude(i => i.Food)
-                    .FirstOrDefault(b => b.TableId == tableId && b.PaidDate == null);
-
-                if (existingBill != null)
+                message = "Lấy hóa đơn thành công",
+                billId = existingBill.BillId,
+                danhSachMon = existingBill.BillItems.Select(i => new
                 {
-                    return Ok(new
-                    {
-                        message = "Đã có hóa đơn đang mở cho bàn này",
-                        billId = existingBill.BillId,
-                        danhSachMon = existingBill.BillItems.Select(i => new
-                        {
-                            i.BillItemId,
-                            i.FoodId,
-                            TenMon = i.Food.FoodName,
-                            i.Quantity,
-                            i.Description,
-                            i.SubTotal
-                        })
-                    });
-                }
-                else
-                {
-                    // Nếu chưa có hóa đơn, thì tạo hóa đơn mới tại đây
-                    var newBill = new Bill
-                    {
-                        TableId = tableId,
-                        BranchId = branchId,
-                        TotalPrice = 0,
-                        PaidDate = null,
-                        PaymentMethodId = null
-                    };
-
-                    dbc.Bills.Add(newBill);
-                    dbc.SaveChanges();
-
-                    return Ok(new
-                    {
-                        message = "Tạo hóa đơn mới thành công cho bàn đặt trước",
-                        billId = newBill.BillId,
-                        danhSachMon = new List<object>()
-                    });
-                }
-            }
-
-            // Nếu bàn đang trống → tạo hóa đơn mới
-            if (table.StatusId == 1)
-            {
-                var bill = new Bill
-                {
-                    TableId = tableId,
-                    BranchId = branchId,
-                    TotalPrice = 0,
-                    PaidDate = null,
-                    PaymentMethodId = null
-                };
-
-                dbc.Bills.Add(bill);
-
-                table.StatusId = 3;
-                dbc.Tables.Update(table);
-
-                dbc.SaveChanges();
-
-                return Ok(new
-                {
-                    message = "Tạo hóa đơn mới thành công",
-                    billId = bill.BillId,
-                    danhSachMon = new List<object>()
-                });
-            }
-
-            return BadRequest(new { message = "Trạng thái bàn không hợp lệ!" });
-        }
-
-        [HttpDelete]
-        [Route("/Bill/DeleteFood")]
-        public IActionResult XoaMonKhoiHoaDon(int billItemId)
-        {
-            var billItem = dbc.BillItems
-                .Include(i => i.Bill)
-                .FirstOrDefault(i => i.BillItemId == billItemId);
-
-            if (billItem == null)
-                return NotFound(new { message = "Không tìm thấy món trong hóa đơn!" });
-
-            // Kiểm tra hóa đơn đã thanh toán chưa
-            if (billItem.Bill.PaidDate != null)
-                return BadRequest(new { message = "Hóa đơn đã thanh toán. Không thể xoá món!" });
-
-            dbc.BillItems.Remove(billItem);
-            dbc.SaveChanges();
-
-            return Ok(new { message = "Xoá món khỏi hóa đơn thành công!", deletedItemId = billItemId });
+                    i.BillItemId,
+                    i.FoodId,
+                    TenMon = i.Food.FoodName,
+                    i.Quantity,
+                    i.Description,
+                    i.SubTotal
+                })
+            });
         }
 
         [HttpPut]
@@ -151,50 +71,69 @@ namespace NhaHang.Controllers
 
         [HttpPost]
         [Route("/Bill/UpsertFood")]
-        public IActionResult ThemOrCapNhatMon(int billId, int foodId, int soLuong, string? ghiChu)
+        public IActionResult ThemOrCapNhatMon(int tableId, int branchId, int foodId, int soLuong, string? ghiChu)
         {
-            var bill = dbc.Bills.Find(billId);
+            var table = dbc.Tables.Find(tableId);
             var food = dbc.Foods.Find(foodId);
 
-            if (bill == null || food == null)
+            if (table == null || food == null)
+                return NotFound(new { message = "Không tìm thấy bàn hoặc món ăn!" });
+
+            // Kiểm tra trạng thái bàn trước khi thêm món
+            if (table.StatusId == 2)
+                return BadRequest(new { message = "Bàn đã được đặt trước. Chưa thể thêm món khi khách chưa đến.!" });
+
+            var bill = dbc.Bills
+                .FirstOrDefault(b => b.TableId == tableId && b.PaidDate == null);
+
+            if (bill == null)
             {
-                return NotFound(new { message = "Không tìm thấy hóa đơn hoặc món ăn!" });
+                bill = new Bill
+                {
+                    TableId = tableId,
+                    BranchId = branchId,
+                    TotalPrice = 0,
+                    PaidDate = null
+                };
+
+                dbc.Bills.Add(bill);
+
+                // Cập nhật trạng thái bàn thành "đang sử dụng" (nếu chưa)
+                table.StatusId = 3;
+                dbc.Tables.Update(table);
+
+                dbc.SaveChanges(); // Lưu trước để lấy BillId
             }
 
+            var existingItem = dbc.BillItems.FirstOrDefault(i => i.BillId == bill.BillId && i.FoodId == foodId);
             BillItem? targetItem;
-            var existingItem = dbc.BillItems.FirstOrDefault(i => i.BillId == billId && i.FoodId == foodId);
 
             if (existingItem == null)
             {
-                var newItem = new BillItem
+                targetItem = new BillItem
                 {
-                    BillId = billId,
+                    BillId = bill.BillId,
                     FoodId = foodId,
                     Quantity = soLuong,
                     Description = ghiChu,
                     SubTotal = food.Price * soLuong
                 };
-
-                dbc.BillItems.Add(newItem);
-                targetItem = newItem;
+                dbc.BillItems.Add(targetItem);
             }
             else
             {
-                if (existingItem.Quantity != soLuong || existingItem.Description != ghiChu)
-                {
-                    existingItem.Quantity = soLuong;
-                    existingItem.Description = ghiChu;
-                    existingItem.SubTotal = food.Price * soLuong;
-
-                    dbc.BillItems.Update(existingItem);
-                }
+                existingItem.Quantity = soLuong;
+                existingItem.Description = ghiChu;
+                existingItem.SubTotal = food.Price * soLuong;
+                dbc.BillItems.Update(existingItem);
                 targetItem = existingItem;
             }
 
             dbc.SaveChanges();
+
             var monMoi = dbc.BillItems
                 .Include(i => i.Food)
-                .Where(i => i.BillItemId == targetItem!.BillItemId)
+                .Where(i => i.BillItemId == targetItem.BillItemId)
                 .Select(i => new
                 {
                     i.BillItemId,
@@ -203,12 +142,45 @@ namespace NhaHang.Controllers
                     i.Quantity,
                     i.Description,
                     i.SubTotal
-                })
-                .FirstOrDefault();
+                }).FirstOrDefault();
 
             return Ok(new { message = "Cập nhật món ăn thành công!", monMoi });
         }
 
+        [HttpDelete]
+        [Route("/Bill/DeleteFood")]
+        public IActionResult XoaMonKhoiHoaDon(int billItemId)
+        {
+            var billItem = dbc.BillItems
+                .Include(i => i.Bill)
+                .FirstOrDefault(i => i.BillItemId == billItemId);
+
+            if (billItem == null)
+                return NotFound(new { message = "Không tìm thấy món trong hóa đơn!" });
+
+            if (billItem.Bill.PaidDate != null)
+                return BadRequest(new { message = "Hóa đơn đã thanh toán. Không thể xoá món!" });
+
+            var bill = billItem.Bill;
+            dbc.BillItems.Remove(billItem);
+            dbc.SaveChanges();
+
+            var remainingItems = dbc.BillItems.Any(i => i.BillId == bill.BillId);
+            if (!remainingItems)
+            {
+                dbc.Bills.Remove(bill);
+                var table = dbc.Tables.Find(bill.TableId);
+                if (table != null)
+                {
+                    table.StatusId = 1;
+                    dbc.Tables.Update(table);
+                }
+                dbc.SaveChanges();
+                return Ok(new { message = "Xoá món thành công. Hóa đơn không còn món nào nên đã xoá và cập nhật trạng thái bàn về trống." });
+            }
+
+            return Ok(new { message = "Xoá món khỏi hóa đơn thành công!" });
+        }
 
         [HttpPut]
         [Route("/Bill/Checkout")]
@@ -224,19 +196,18 @@ namespace NhaHang.Controllers
             if (!bill.BillItems.Any())
                 return BadRequest(new { message = "Hóa đơn chưa có món ăn!" });
 
-            decimal tongTien = bill.BillItems.Sum(i => i.SubTotal);
-
-            bill.TotalPrice = tongTien;
+            bill.TotalPrice = bill.BillItems.Sum(i => i.SubTotal);
             bill.PaidDate = DateTime.Now;
             bill.PaymentMethodId = paymentMethodId;
-
             dbc.Bills.Update(bill);
+
             var table = dbc.Tables.FirstOrDefault(t => t.TableId == bill.TableId);
             if (table != null)
             {
                 table.StatusId = 1;
                 dbc.Tables.Update(table);
             }
+
             dbc.SaveChanges();
 
             return Ok(new
