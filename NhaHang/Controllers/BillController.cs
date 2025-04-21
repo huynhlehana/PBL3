@@ -43,7 +43,7 @@ namespace NhaHang.Controllers
                 {
                     i.BillItemId,
                     i.FoodId,
-                    TenMon = i.Food.FoodName,
+                    i.Food.FoodName,
                     i.Food.Picture,
                     i.Food.Price,
                     i.Quantity,
