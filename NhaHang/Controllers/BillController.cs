@@ -44,9 +44,10 @@ namespace NhaHang.Controllers
                     i.BillItemId,
                     i.FoodId,
                     TenMon = i.Food.FoodName,
+                    i.Food.Picture,
                     i.Quantity,
                     i.Description,
-                    i.SubTotal
+                    i.SubTotal,
                 })
             });
         }
