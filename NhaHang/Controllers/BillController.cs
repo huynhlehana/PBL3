@@ -73,12 +73,11 @@ namespace NhaHang.Controllers
 
         [HttpPost]
         [Route("/Bill/UpsertFood")]
-        public IActionResult ThemOrCapNhatMon(int tableId, int branchId, int foodId, int soLuong, string? ghiChu)
+        public IActionResult ThemOrCapNhatMon(int tableId, [FromBody] List<BillItem> foodOrders)
         {
             var table = dbc.Tables.Find(tableId);
-            var food = dbc.Foods.Find(foodId);
 
-            if (table == null || food == null)
+            if (table == null)
                 return NotFound(new { message = "Không tìm thấy bàn hoặc món ăn!" });
 
             // Kiểm tra trạng thái bàn trước khi thêm món
@@ -93,7 +92,7 @@ namespace NhaHang.Controllers
                 bill = new Bill
                 {
                     TableId = tableId,
-                    BranchId = branchId,
+                    BranchId = table.BranchId,
                     TotalPrice = 0,
                     PaidDate = null
                 };
@@ -107,64 +106,89 @@ namespace NhaHang.Controllers
                 dbc.SaveChanges(); // Lưu trước để lấy BillId
             }
 
-            var existingItem = dbc.BillItems.FirstOrDefault(i => i.BillId == bill.BillId && i.FoodId == foodId);
-            BillItem? targetItem;
+            var danhSachMonMoi = new List<object>();
 
-            if (existingItem == null)
+            foreach (var i in foodOrders)
             {
-                targetItem = new BillItem
+                var food = dbc.Foods.Find(i.FoodId);
+                if (food == null) continue;
+
+                var existingItem = dbc.BillItems.FirstOrDefault(j => j.BillId == bill.BillId && j.FoodId == i.FoodId);
+                BillItem? targetItem;
+
+                if (existingItem == null)
                 {
-                    BillId = bill.BillId,
-                    FoodId = foodId,
-                    Quantity = soLuong,
-                    Description = ghiChu,
-                    SubTotal = food.Price * soLuong
-                };
-                dbc.BillItems.Add(targetItem);
-            }
-            else
-            {
-                existingItem.Quantity = soLuong;
-                existingItem.Description = ghiChu;
-                existingItem.SubTotal = food.Price * soLuong;
-                dbc.BillItems.Update(existingItem);
-                targetItem = existingItem;
-            }
-
-            dbc.SaveChanges();
-
-            var monMoi = dbc.BillItems
-                .Include(i => i.Food)
-                .Where(i => i.BillItemId == targetItem.BillItemId)
-                .Select(i => new
+                    targetItem = new BillItem
+                    {
+                        BillId = bill.BillId,
+                        FoodId = i.FoodId,
+                        Quantity = i.Quantity,
+                        Description = i.Description,
+                        SubTotal = food.Price * i.Quantity,
+                    };
+                    dbc.BillItems.Add(targetItem);
+                }
+                else
                 {
-                    i.BillItemId,
-                    i.FoodId,
-                    TenMon = i.Food.FoodName,
-                    i.Quantity,
-                    i.Description,
-                    i.SubTotal
-                }).FirstOrDefault();
+                    existingItem.Quantity = i.Quantity;
+                    existingItem.Description = i.Description;
+                    existingItem.SubTotal = food.Price * i.Quantity;
+                    dbc.BillItems.Update(existingItem);
+                    targetItem = existingItem;
+                }
 
-            return Ok(new { message = "Cập nhật món ăn thành công!", monMoi });
+                dbc.SaveChanges();
+
+                var updatedItems = dbc.BillItems
+                    .Include(i => i.Food)
+                    .Where(i => i.BillItemId == targetItem.BillItemId)
+                    .Select(i => new
+                    {
+                        i.BillItemId,
+                        i.FoodId,
+                        TenMon = i.Food.FoodName,
+                        i.Quantity,
+                        i.Description,
+                        i.SubTotal
+                    }).FirstOrDefault();
+
+                if (updatedItems != null)
+                    danhSachMonMoi.Add(updatedItems);
+            }
+
+            return Ok(new { message = "Cập nhật món ăn thành công!",danhSachMonMoi});
         }
 
         [HttpDelete]
-        [Route("/Bill/DeleteFood")]
-        public IActionResult XoaMonKhoiHoaDon(int billItemId)
+        [Route("/Bill/DeleteFoods")]
+        public IActionResult XoaNhieuMonKhoiHoaDon([FromBody] List<BillItem> itemsToDelete)
         {
-            var billItem = dbc.BillItems
+            if (itemsToDelete == null || !itemsToDelete.Any())
+                return BadRequest(new { message = "Danh sách món cần xoá không hợp lệ!" });
+
+            // Giả sử tất cả BillItem trong 1 bill
+            var firstItem = itemsToDelete.First();
+            var firstBillItem = dbc.BillItems
                 .Include(i => i.Bill)
-                .FirstOrDefault(i => i.BillItemId == billItemId);
+                .FirstOrDefault(i => i.BillItemId == firstItem.BillItemId);
 
-            if (billItem == null)
-                return NotFound(new { message = "Không tìm thấy món trong hóa đơn!" });
+            if (firstBillItem == null)
+                return NotFound(new { message = "Không tìm thấy hóa đơn hoặc món ăn!" });
 
-            if (billItem.Bill.PaidDate != null)
+            var bill = firstBillItem.Bill;
+
+            if (bill.PaidDate != null)
                 return BadRequest(new { message = "Hóa đơn đã thanh toán. Không thể xoá món!" });
 
-            var bill = billItem.Bill;
-            dbc.BillItems.Remove(billItem);
+            foreach (var item in itemsToDelete)
+            {
+                var billItem = dbc.BillItems.FirstOrDefault(i => i.BillItemId == item.BillItemId);
+                if (billItem != null && billItem.BillId == bill.BillId)
+                {
+                    dbc.BillItems.Remove(billItem);
+                }
+            }
+
             dbc.SaveChanges();
 
             var remainingItems = dbc.BillItems.Any(i => i.BillId == bill.BillId);
@@ -177,12 +201,14 @@ namespace NhaHang.Controllers
                     table.StatusId = 1;
                     dbc.Tables.Update(table);
                 }
+
                 dbc.SaveChanges();
                 return Ok(new { message = "Xoá món thành công. Hóa đơn không còn món nào nên đã xoá và cập nhật trạng thái bàn về trống." });
             }
 
-            return Ok(new { message = "Xoá món khỏi hóa đơn thành công!" });
+            return Ok(new { message = "Xoá các món khỏi hóa đơn thành công!" });
         }
+
 
         [HttpPut]
         [Route("/Bill/Checkout")]
