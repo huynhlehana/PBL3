@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 namespace NhaHang.ModelFromDB;
 
@@ -28,11 +27,9 @@ public partial class Food
     [StringLength(255)]
     public string? Picture { get; set; }
 
-    [JsonIgnore]
     [InverseProperty("Food")]
     public virtual ICollection<BillItem> BillItems { get; set; } = new List<BillItem>();
 
-    [JsonIgnore]
     [ForeignKey("CategoryId")]
     [InverseProperty("Foods")]
     public virtual Category Category { get; set; } = null!;

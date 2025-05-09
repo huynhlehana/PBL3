@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using NhaHang.ModelFromDB;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NhaHang.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "Everyone")]
     public class BillController : Controller
     {
         private readonly quanlynhahang dbc;
@@ -94,6 +96,7 @@ namespace NhaHang.Controllers
                     TableId = tableId,
                     BranchId = table.BranchId,
                     TotalPrice = 0,
+                    Created = DateTime.Now,
                     PaidDate = null
                 };
 

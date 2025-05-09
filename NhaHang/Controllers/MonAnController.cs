@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using NhaHang.ModelFromDB;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NhaHang.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminOnly")]
     public class MonAnController : ControllerBase
     {
         private readonly quanlynhahang dbc;

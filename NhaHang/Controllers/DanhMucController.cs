@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NhaHang.ModelFromDB;
 
@@ -6,6 +7,7 @@ namespace NhaHang.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminOnly")]
     public class DanhMucController : ControllerBase
     {
         private readonly quanlynhahang dbc;

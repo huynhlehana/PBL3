@@ -25,7 +25,7 @@ public partial class Table
     public int BranchId { get; set; }
 
     [InverseProperty("Table")]
-    public virtual Bill? Bill { get; set; }
+    public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
 
     [ForeignKey("BranchId")]
     [InverseProperty("Tables")]

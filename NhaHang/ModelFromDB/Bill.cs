@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace NhaHang.ModelFromDB;
 
 [Table("Bill")]
-
 public partial class Bill
 {
     [Key]
@@ -22,6 +21,9 @@ public partial class Bill
 
     [Column("paymentMethodID")]
     public int? PaymentMethodId { get; set; }
+
+    [Column("created", TypeName = "datetime")]
+    public DateTime? Created { get; set; }
 
     [Column("paidDate", TypeName = "datetime")]
     public DateTime? PaidDate { get; set; }
@@ -38,9 +40,9 @@ public partial class Bill
 
     [ForeignKey("PaymentMethodId")]
     [InverseProperty("Bills")]
-    public virtual PaymentMethod? PaymentMethod { get; set; } = null;
+    public virtual PaymentMethod? PaymentMethod { get; set; }
 
     [ForeignKey("TableId")]
-    [InverseProperty("Bill")]
+    [InverseProperty("Bills")]
     public virtual Table Table { get; set; } = null!;
 }
